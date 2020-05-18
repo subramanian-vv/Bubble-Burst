@@ -1,7 +1,7 @@
-BUBBLE BURST:
+##BUBBLE BURST:
 Bubble Burst is a fun game in which bubbles appear at random places on the screen. The main aim of the player is to burst the bubbles before they fill up a major part of the screen.
 
-RULES:
+#RULES:
 •	Burst the bubbles which appear on the screen by clicking on them.
 
 •	Game ends when more than 75% of the screen is filled with bubbles.
