@@ -1,0 +1,43 @@
+.pic {
+    margin: 0;
+    margin-right: 0;
+    background-image: url(Images/bubble.jpg);
+    background-position: center;
+    background-size: 100%;
+}
+ .play, .rules, .back {
+    background-color: rgb(201, 28, 94);
+    border: none;
+    color: white;
+    padding: 20px 34px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointers;
+    background-position: bottom;
+ }
+
+ canvas {
+     border: 1px solid ;
+     background-color: blue;
+ }
+
+ h1 {
+     color: blue;
+     text-decoration: underline;
+     text-align: center;
+ }
+
+ mark {
+     background: black;
+     color: yellow;
+ }
+
+ .header {
+     background: black;
+     color: blue;
+ }
+
+ 
