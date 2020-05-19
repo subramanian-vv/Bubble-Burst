@@ -14,10 +14,10 @@ Bubble Burst is a fun game in which bubbles appear at random places on the scree
 
 - Thanos' infinity gauntlet clears half the bubbles on snap (click).
 
-- Tap the SPACEBAR to pause and tap it again to resume the game.
-
 - Score is inversely proportional to the size of the bubbles popped.
 
-- Once the game ends, press ENTER to restart the game.
+- Click on the PAUSE button to pause and resume the game.
+
+- Click on the RESTART button to restart the game anytime.
 
 - Use HEADPHONES for a better experience!
