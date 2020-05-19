@@ -11,7 +11,7 @@ var felixFelicis = new Audio('Audios/felix_felicis.mp3');
 var warning = new Audio('Audios/warning.mp3');
 var gameOverSound = new Audio('Audios/game_over.mp3');
 
-var bestScore = 0, scoreArray = [], checkPause = 0;
+var bestScore = 0, scoreArray = [];
 
 //Resize the window automatically based on screen resolution
 window.addEventListener('resize', function() {
@@ -19,24 +19,11 @@ window.addEventListener('resize', function() {
     canvas.height=window.innerHeight-25;
 });
 
-//Spacebar to pause and resume the game
-document.body.onkeypress = function(event) {
-    if(event.keyCode == 32 && checkPause==0)
-    {
-        alert("Game paused");
-        checkPause = 1;
-    }
-    if(event.keyCode == 32 && checkPause==1)
-    {
-        checkPause = 0;
-    }
-}
-
 init();
 
 function init() {
     
-    var currScore = 0, gameOver = 0, ffcount=0, time = 1000, gauntCount = 0, ffdisappear = 0;
+    var currScore = 0, checkPause = 0, gameOver = 0, ffcount=0, time = 1000, gauntCount = 0, ffdisappear = 0;
     var totalArea = (canvas.width-100) * canvas.height;
 
     var colors = [
@@ -69,7 +56,7 @@ class Bubble {
 
     draw = function() {
         var grad = c.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-        grad.addColorStop(0.7, "blue");
+        grad.addColorStop(0.7, "seagreen");
         grad.addColorStop(1, colors[Math.floor(Math.random()*colors.length)]);
         c.fillStyle = grad;
 
@@ -77,6 +64,10 @@ class Bubble {
         c.arc(this.x , this.y , this.radius , 0 ,Math.PI*2 , false);
         c.fill();
         c.closePath();
+        c.beginPath();
+        c.font = '15px Arial';
+        c.fillStyle = '#FFFFFF';
+        c.fillText("1", this.x-2, this.y+2);
     }
 
     update = function(bubbleArray) {
@@ -123,7 +114,7 @@ class rockBubble {
 
     draw = function() {
         var grad = c.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.radius);
-        grad.addColorStop(2*(this.click/10), "blue");
+        grad.addColorStop(2*(this.click/10), "seagreen");
         grad.addColorStop(1, colors[Math.floor(Math.random()*colors.length)]);
         c.fillStyle = grad;
 
@@ -131,6 +122,10 @@ class rockBubble {
         c.arc(this.x , this.y , this.radius , 0 ,Math.PI*2 , false);
         c.fill();
         c.closePath();
+        c.beginPath();
+        c.font = '15px Arial';
+        c.fillStyle = '#FFFFFF';
+        c.fillText(5-this.click, this.x-2, this.y+2);
     }
 
     update = function(bubbleArray) {
@@ -296,7 +291,27 @@ function click(event) {
             },20000);
             }
         }
+
     }
+
+    if(event.offsetX > canvas.width-65 && event.offsetX < canvas.width-35 && event.offsetY > 200 && event.offsetY < 240) 
+        {
+            if(checkPause == 0)
+            {
+                checkPause = 1;
+            }
+            else if(checkPause == 1) {
+                checkPause = 0;
+                animate();
+            }
+        }
+
+    if(event.offsetX > canvas.width-90 && event.offsetX < canvas.width-10 && event.offsetY > 360 && event.offsetY < 435)
+    {
+        window.location.reload();
+    }
+    console.log(event.offsetX);
+    console.log(event.offsetY);
 }
 
 //Calculate scores and best score
@@ -321,43 +336,82 @@ function scoreUpdate(event) {
     }
 }
 
+function drawPause() {
+
+    if(ffcount<2 && ffdisappear==0)
+    {
+        var img = new Image();
+        img.src = 'Images/ff.png';
+        c.drawImage(img, canvas.width - 100, -5, 100, 150);
+    }
+
+        var restart = new Image();
+        restart.src = 'Images/restart.png';
+        c.drawImage(restart, canvas.width-90, (canvas.height/2)+45, 80, 80);
+
+    if(checkPause == 0)
+    {
+        c.beginPath();
+        c.strokeStyle='#FFFF00';
+        c.fillStyle='#FFFF00';
+        c.fillRect(canvas.width-65, 220, 10, 40);
+        c.fillRect(canvas.width-45, 220, 10, 40);
+        c.stroke();
+        c.fill();
+        c.closePath();
+        
+    }
+    if(checkPause == 1)
+    {
+        c.beginPath();
+        c.strokeStyle='#FFFF00';
+        c.fillStyle='#FFFF00';
+        c.moveTo(canvas.width-65, 220);
+        c.lineTo(canvas.width-65, 260);
+        c.lineTo(canvas.width-35, 240);
+        c.stroke();
+        c.fill();
+        c.closePath();
+    }
+}
+
 //Draw scores onto the canvas
 function drawScores() {
     c.beginPath();
     c.font = "30px Algerian";
-    c.fillStyle = '#FFFFFF'
-    c.fillText("Score: ", 20, 50);
-    c.fillText(currScore, 125, 50);
-    c.fillText("Best  : ", 20, 100);
+    c.strokeStyle = '#000000';
+    c.fillStyle = '#000000';
+    c.fillText("SCORE : ", 20, 50);
+    c.fillText(currScore, 135, 50);
+    c.fillText("BEST ", 20, 100);
+    c.fillText(":", 117, 100);
+    c.strokeText("SCORE : ", 20, 50);
+    c.strokeText(currScore, 135, 50);
+    c.strokeText("BEST ", 20, 100);
+    c.strokeText(":", 117, 100);
 
     if(window.localStorage.getItem('highScore') == null)
     {
-        c.fillText('0', 125, 100);
+        c.fillText('0', 135, 100);
+        c.strokeText('0', 135, 100);
     }
     else
     {
-        c.fillText(window.localStorage.getItem('highScore'), 125, 100);
+        c.fillText(window.localStorage.getItem('highScore'), 135, 100);
+        c.strokeText(window.localStorage.getItem('highScore'), 135, 100);
     }
     c.closePath();
 
     if(gameOver == 1) 
     {
         c.beginPath();
-        c.font = '30px Arial';
+        c.font = '50px Arial';
         c.textAlign = 'center';
-        c.fillStyle = '#FFFFFF';
-        c.strokeStyle = '#FFFFFF';
-        c.fillText('GAME OVER', canvas.width/2, canvas.height/2);
-        c.strokeText('GAME OVER', canvas.width/2, canvas.height/2);
-        c.fillText('Press ENTER to RESTART', canvas.width/2, (canvas.height/2)+40);
-        c.strokeText('Press ENTER to RESTART', canvas.width/2, (canvas.height/2)+40);
-
-        document.body.onkeypress = function(event) {
-            if(event.keyCode == 13)
-            {
-                window.location.reload();
-            }
-        }
+        c.fillStyle = '#000000';
+        c.strokeStyle = '#000000';
+        c.fillText('GAME OVER!', canvas.width/2, canvas.height/2);
+        c.strokeText('GAME OVER!', canvas.width/2, canvas.height/2);
+        c.closePath();
     }
 }
 
@@ -369,16 +423,6 @@ function checkArea () {
         area += Math.PI * (Math.pow(bubbleArray[m].radius, 2));
     }
     var fractionArea = area/totalArea;
-
-    if(fractionArea > 0)
-    {
-        if(ffcount<2 && ffdisappear==0)
-        {
-        var img = new Image();
-        img.src = 'Images/ff.png';
-        c.drawImage(img, canvas.width - 100, 10, 100, 150);
-        }
-    }
 
     if(gauntCount < 1 && fractionArea > 0.15 && currScore > 100)
     {
@@ -406,11 +450,13 @@ function checkArea () {
        } 
         if(window.localStorage.getItem('highScore') == null)
         {
-            c.fillText('0', 125, 100);
+            c.fillText('0', 135, 100);
+            c.strokeText('0', 135, 100);
         }
         else
         {
-            c.fillText(window.localStorage.getItem('highScore'), 125, 100);
+            c.fillText(window.localStorage.getItem('highScore'), 135, 100);
+            c.strokeText(window.localStorage.getItem('highScore'), 135, 100);
         }
         gameOver = 1;
         gameOverSound.play();
@@ -481,10 +527,11 @@ function animate() {
         checkArea();
         drawScores();
         borderResize();
+        drawPause();
     }
 
     canvas.addEventListener('mousedown', click);
-
+    
 }
 
 animate();
