@@ -1,19 +1,20 @@
-//Initialise canvas
+//Initialises canvas
 var canvas = document.querySelector('canvas');
 canvas.width=window.innerWidth-25;
 canvas.height=window.innerHeight-25;
 var c=canvas.getContext('2d');
 
-//Initialise all audio files
+//Initialises all audio files
 var bubblePop = new Audio('Audios/bubble_pop.mp3');
 var snap = new Audio('Audios/snap.mp3');
 var felixFelicis = new Audio('Audios/felix_felicis.mp3');
 var warning = new Audio('Audios/warning.mp3');
 var gameOverSound = new Audio('Audios/game_over.mp3');
 
+//Initialises array for best scores
 var bestScore = 0, scoreArray = [];
 
-//Resize the window automatically based on screen resolution
+//Resizes the window automatically based on screen resolution
 window.addEventListener('resize', function() {
     canvas.width=window.innerWidth-25;
     canvas.height=window.innerHeight-25;
@@ -220,6 +221,7 @@ function click(event) {
     if(checkPause==0) {
         for(var k=0;k<bubbleArray.length;k++)
         {
+            //Checks bubble click event
             if(getDistance(event.offsetX, event.offsetY, bubbleArray[k].x, bubbleArray[k].y) <= bubbleArray[k].radius)
             {
                 if(bubbleArray[k] instanceof Bubble)
@@ -258,7 +260,9 @@ function click(event) {
             
 
         }
-        if(event.offsetX > canvas.width - 80  && event.offsetX < canvas.width - 20 && event.offsetY > 20 && event.offsetY < 145)
+
+        //Checks Felix Felicis click event
+        if(event.offsetX > canvas.width - 80  && event.offsetX < canvas.width - 20 && event.offsetY > 10 && event.offsetY < 130)
         {
             if(ffcount<2 && ffdisappear==0)
             {
@@ -276,6 +280,8 @@ function click(event) {
             },5000);
             }
         }
+
+        //Checks gauntlet click event
         if(event.offsetX > canvas.width - 80 && event.offsetY > canvas.height - 100)
         {
             if(gauntCount < 1)
@@ -294,7 +300,8 @@ function click(event) {
 
     }
 
-    if(event.offsetX > canvas.width-65 && event.offsetX < canvas.width-35 && event.offsetY > 200 && event.offsetY < 240) 
+    //Checks pause and play click events
+    if(event.offsetX > canvas.width-65 && event.offsetX < canvas.width-35 && event.offsetY > 220 && event.offsetY < 260) 
         {
             if(checkPause == 0)
             {
@@ -305,16 +312,16 @@ function click(event) {
                 animate();
             }
         }
-
+    
+    //Checks restart click event
     if(event.offsetX > canvas.width-90 && event.offsetX < canvas.width-10 && event.offsetY > 360 && event.offsetY < 435)
     {
         window.location.reload();
     }
-    console.log(event.offsetX);
-    console.log(event.offsetY);
+
 }
 
-//Calculate scores and best score
+//Calculates scores and best score
 function scoreUpdate(event) {
     if(gameOver == 0)
     {
@@ -336,8 +343,10 @@ function scoreUpdate(event) {
     }
 }
 
-function drawPause() {
+//Draws various features onto canvas
+function drawFeatures() {
 
+    //Felix Felicis
     if(ffcount<2 && ffdisappear==0)
     {
         var img = new Image();
@@ -345,10 +354,12 @@ function drawPause() {
         c.drawImage(img, canvas.width - 100, -5, 100, 150);
     }
 
+        //Restart button
         var restart = new Image();
         restart.src = 'Images/restart.png';
         c.drawImage(restart, canvas.width-90, (canvas.height/2)+45, 80, 80);
 
+    //Pause and play button
     if(checkPause == 0)
     {
         c.beginPath();
@@ -375,7 +386,7 @@ function drawPause() {
     }
 }
 
-//Draw scores onto the canvas
+//Draws scores onto the canvas
 function drawScores() {
     c.beginPath();
     c.font = "30px Algerian";
@@ -511,7 +522,7 @@ function resolveCollision(bubble1, bubble2) {
     }
 }
 
-
+//Function to animate the canvas
 function animate() {
     if(gameOver == 0) {
         if(checkPause == 0) {
@@ -527,7 +538,7 @@ function animate() {
         checkArea();
         drawScores();
         borderResize();
-        drawPause();
+        drawFeatures();
     }
 
     canvas.addEventListener('mousedown', click);
