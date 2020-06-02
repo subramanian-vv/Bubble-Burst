@@ -262,7 +262,7 @@ function click(event) {
         }
 
         //Checks Felix Felicis click event
-        if(event.offsetX > canvas.width - 80  && event.offsetX < canvas.width - 20 && event.offsetY > 10 && event.offsetY < 130)
+        if(event.offsetX > canvas.width - 80  && event.offsetX < canvas.width - 20 && event.offsetY > 10 && event.offsetY < (canvas.height/3)-80)
         {
             if(ffcount<2 && ffdisappear==0)
             {
@@ -301,7 +301,7 @@ function click(event) {
     }
 
     //Checks pause and play click events
-    if(event.offsetX > canvas.width-65 && event.offsetX < canvas.width-35 && event.offsetY > 220 && event.offsetY < 260) 
+    if(event.offsetX > canvas.width-65 && event.offsetX < canvas.width-35 && event.offsetY > (canvas.height/2)-95 && event.offsetY < (canvas.height/2)-55) 
         {
             if(checkPause == 0)
             {
@@ -314,7 +314,7 @@ function click(event) {
         }
     
     //Checks restart click event
-    if(event.offsetX > canvas.width-90 && event.offsetX < canvas.width-10 && event.offsetY > 360 && event.offsetY < 435)
+    if(event.offsetX > canvas.width-90 && event.offsetX < canvas.width-10 && event.offsetY > (canvas.height/2)+45 && event.offsetY < (canvas.height/2)+120)
     {
         window.location.reload();
     }
@@ -365,8 +365,8 @@ function drawFeatures() {
         c.beginPath();
         c.strokeStyle='#FFFF00';
         c.fillStyle='#FFFF00';
-        c.fillRect(canvas.width-65, 220, 10, 40);
-        c.fillRect(canvas.width-45, 220, 10, 40);
+        c.fillRect(canvas.width-65, (canvas.height/2)-95, 10, 40);
+        c.fillRect(canvas.width-45, (canvas.height/2)-95, 10, 40);
         c.stroke();
         c.fill();
         c.closePath();
@@ -377,9 +377,9 @@ function drawFeatures() {
         c.beginPath();
         c.strokeStyle='#FFFF00';
         c.fillStyle='#FFFF00';
-        c.moveTo(canvas.width-65, 220);
-        c.lineTo(canvas.width-65, 260);
-        c.lineTo(canvas.width-35, 240);
+        c.moveTo(canvas.width-65, (canvas.height/2)-95);
+        c.lineTo(canvas.width-65, (canvas.height/2)-55);
+        c.lineTo(canvas.width-35, (canvas.height/2)-75);
         c.stroke();
         c.fill();
         c.closePath();
