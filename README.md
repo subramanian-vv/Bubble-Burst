@@ -1,5 +1,5 @@
 # BUBBLE BURST:
-Bubble Burst is a fun game in which bubbles appear at random places on the screen. The main aim of the player is to burst the bubbles before they fill up a major part of the screen.
+Bubble Burst is a fun game in which bubbles appear at random places on the screen. The main aim of the player is to burst the bubbles before they fill up a major part of the screen. **You can play the game [here](https://subramanian-vv.github.io/Bubble-Burst/).**
 
 ## RULES:
 - Burst the bubbles which appear on the screen by clicking on them.
